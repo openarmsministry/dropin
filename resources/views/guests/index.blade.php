@@ -4,12 +4,15 @@
     <div class="container">
         <h1>Guests</h1>
         @include('partials.message')
-        <form action="" class="form-inline">
-            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
-            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
-            <button type="submit" class="btn btn-primary">Search</button>
-            <a href="guests" class="btn btn-danger">Reset</a>
-        </form>
+        <div class="row">
+            <form action="" class="form-inline col-lg-10">
+                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="guests" class="btn btn-danger">Reset</a>
+            </form>
+            <a href="guests/create" class="btn btn-success col-lg-2">Create a Guest</a>
+        </div>
         <br>
         <div class="row">
             @foreach($guests as $guest)
