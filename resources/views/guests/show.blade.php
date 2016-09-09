@@ -15,8 +15,8 @@
 
         <h2>Attendance</h2>
         <ul>
-        @foreach($sessions as $session)
-            <li>{{$session->start_timestamp->format('M d Y')}}</li>
+        @foreach($attendances as $attendance)
+            <li>{{$attendance->signin_timestamp->setTimezone(config('app.local_timezone'))->format('D M d Y')}}</li>
         @endforeach
         </ul>
 

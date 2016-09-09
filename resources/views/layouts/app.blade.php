@@ -31,9 +31,21 @@
     <div class="collapse navbar-toggleable-xs" id="exCollapsingNavbar2">
         <a class="navbar-brand" href="{{ url('/') }}">OAM Dropin</a>
         <ul class="nav navbar-nav">
-            <li class="nav-item">
-                <a href="/guests" class="nav-link">Guests</a>
-            </li>
+            @if( Auth::check() and Auth::user()->can('create', \App\Guest::class))
+                <li class="nav-item">
+                    <a href="/guests" class="nav-link">Guests</a>
+                </li>
+            @endif
+            @if( Auth::check() and Auth::user()->can('checkin', \App\Guest::class))
+                <li class="nav-item">
+                    <a href="/checkin" class="nav-link">Check In</a>
+                </li>
+            @endif
+            @if( Auth::check() and Auth::user()->can('manage', \App\OpenarmsSession::class))
+                <li class="nav-item">
+                    <a href="/admin/current" class="nav-link">Current Session</a>
+                </li>
+            @endif
         </ul>
         <ul class="nav navbar-nav pull-xs-right">
             <!-- Authentication Links -->

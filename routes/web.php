@@ -51,7 +51,7 @@ Route::post('/sessions/{sessionId}/end', function ($sessionId) {
     return redirect('admin')->with(['success' => 'The session has ended']);
 })->name('endSession')->middleware('auth');
 
-Route::post('/sessions/{sessionId}/checkin/{guestId}', function ($sessionId, $guestId) {
+Route::post('/sessions/{sessionId}/checkin/{guestId}', function ($sessionId, $guestId, \Illuminate\Http\Request $request) {
     $guest = \App\Guest::find($guestId);
     $user = \Auth::user();
     if ($user->cannot('checkin', $guest)) {
@@ -67,6 +67,13 @@ Route::post('/sessions/{sessionId}/checkin/{guestId}', function ($sessionId, $gu
     $attendance->guest_id = $guestId;
     $attendance->signin_timestamp = \Carbon\Carbon::now();
     $attendance->save();
+
+    $services = $request->get('services');
+
+    if ($services) {
+        $attendance->services()->sync($services);
+    }
+
     return redirect('checkin')->with(['success' => "{$guest->nick_name} is checked in."]);
 })->name('attend')->middleware('auth');
 

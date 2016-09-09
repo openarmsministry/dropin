@@ -30,4 +30,9 @@ class OpenarmsSessionPolicy
     {
         return $user->hasRole('admin');
     }
+
+    public function manage(User $user)
+    {
+        return $user->hasRole('admin');
+    }
 }
