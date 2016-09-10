@@ -45,13 +45,14 @@ class GuestController extends Controller
     }
 
     public function checkin(Request $request) {
-        $session = \App\OpenarmsSession::getStarted()->first();
+        $session = \App\OpenarmsSession::getStarted()->with('attendances')->first();
         $services = \App\Service::all();
         $nickname = title_case($request->query('nickname'));
-
         $servicesArray = $services->map(function ($service) {
             return ['key' => $service->id, 'value' => $service->short_name];
         });
+
+        $guestCount = $session ? $session->attendances->count() : null;
 
         $guests = [];
 
@@ -59,7 +60,7 @@ class GuestController extends Controller
             $guests = \App\Guest::nicknameCheckin($nickname, $session->id)->get();
         }
 
-        return view('guests.checkin', compact('guests', 'nickname', 'session', 'servicesArray'));
+        return view('guests.checkin', compact('guests', 'nickname', 'session', 'servicesArray', 'guestCount'));
     }
 
     /**

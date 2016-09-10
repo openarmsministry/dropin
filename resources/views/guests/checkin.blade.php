@@ -7,6 +7,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <h2>Guest Checkin</h2>
+                    <p>Guests Checked in so far: {{$guestCount}}</p>
 
                     <form action="" class="form-inline">
                         <input type="text" class="form-control " name="nickname" placeholder="Nick Name">
