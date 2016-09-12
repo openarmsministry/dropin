@@ -136,6 +136,16 @@ class GuestController extends Controller
         //
     }
 
+    public function rotatePhoto(Request $request, $id)
+    {
+        $guest = Guest::find($id);
+        $photo = imagecreatefromjpeg($guest->getPhotoPath());
+        $newPhoto = \Image::make(imagerotate($photo, 90, 0));
+
+        \Storage::cloud()->put($guest->photo_path, $newPhoto->stream()->__toString());
+//        $guest->photo_path = $path;
+        return redirect()->back()->with(['success' => 'Image Rotated']);
+    }
     /**
      * Remove the specified resource from storage.
      *

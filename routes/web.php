@@ -23,6 +23,8 @@ Route::get('/admin/current', 'AdminController@current')->middleware('admin');
 
 Route::resource('guests', 'GuestController');
 
+Route::put('guests/{id}/photo/rotate', 'GuestController@rotatePhoto')->middleware('auth');
+
 Route::get('/checkin', 'GuestController@checkin');
 
 Route::post('/sessions', function () {

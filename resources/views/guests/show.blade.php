@@ -11,6 +11,11 @@
         <p>SSN: {{$guest->ssn}}</p>
         <div class="row">
             <img class="col-md-3" src="{{$guest->getPhotoPath()}}" alt="">
+            <form action="/guests/{{$guest->id}}/photo/rotate" method="post">
+                {{ csrf_field() }}
+                {{ method_field('put') }}
+                <input type="submit" value="Rotate Clockwise" class="btn btn-primary btn-sm">
+            </form>
         </div>
 
         <h2>Attendance</h2>
