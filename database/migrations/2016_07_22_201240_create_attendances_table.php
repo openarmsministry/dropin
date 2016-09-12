@@ -18,7 +18,7 @@ class CreateAttendancesTable extends Migration
             $table->integer('openarms_session_id')->unsigned()->index();
             $table->timestamp('signin_timestamp');
             $table->foreign('guest_id')->references('id')->on('guests')->onDelete('cascade');
-            $table->foreign('openarms_session_id')->references('id')->on('guests')->onDelete('cascade');
+            $table->foreign('openarms_session_id')->references('id')->on('openarms_sessions')->onDelete('cascade');
         });
     }
 
