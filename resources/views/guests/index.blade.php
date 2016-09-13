@@ -21,7 +21,7 @@
                     <div class="card-block">
                         <h4 class="card-title">{{$guest->first_name}} {{$guest->last_name}}</h4>
                         <a href="guests/{{$guest->id}}" class="btn btn-success btn-sm">View</a>
-                        <a href="guests/edit/{{$guest->id}}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="guests/{{$guest->id}}/edit" class="btn btn-primary btn-sm">Edit</a>
                         @if ($guest->is_banned)
                             {{--                                <a href="{{route('guest.unban', ['guestId' => $guest->id])}}" class="">Un-ban</a>--}}
                         @else

@@ -3,6 +3,6 @@
            @if(isset($required) and $required) required @endif>{{ $title }} @if(isset($required) and $required)
             * @endif</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" name=" {{ $name }}">
+        <input type="text" class="form-control" name="{{ $name }}" @if(isset($value)) value="{{$value}}" @endif>
     </div>
 </div>

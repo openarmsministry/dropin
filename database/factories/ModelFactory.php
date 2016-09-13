@@ -27,7 +27,6 @@ $factory->define(App\Guest::class, function (Faker\Generator $faker) {
         'official_name' => $faker->name,
         'nick_name' => $faker->firstNameMale,
         'birth_date' => $faker->date(),
-        'photo_path' => '/'
     ];
 });
 

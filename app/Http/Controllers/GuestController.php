@@ -91,7 +91,7 @@ class GuestController extends Controller
 
         if ($request->hasFile('guest_photo')) {
             $photo = $request->file('guest_photo');
-            $path = $photo->store('guest-photos', 's3');
+            $path = $guest->saveNewPhoto($photo);
             $guest->photo_path = $path;
         }
 
@@ -133,17 +133,29 @@ class GuestController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $guest = Guest::find($id);
+        //TODO validate input
+
+        $formHelper = new FormInputToModelHelper($guest, $request);
+        $formHelper->processModel();
+
+        if ($request->hasFile('guest_photo')) {
+            $photo = $request->file('guest_photo');
+            $guest->photo_path = $guest->updatePhoto($photo);
+        }
+
+        $guest->save();
+
+        return redirect('guests')->with(['success' => "Guest {$guest->first_name} is updated"]);
     }
 
     public function rotatePhoto(Request $request, $id)
     {
         $guest = Guest::find($id);
-        $photo = imagecreatefromjpeg($guest->getPhotoPath());
-        $newPhoto = \Image::make(imagerotate($photo, 90, 0));
+        $photo = imagecreatefromjpeg($guest->getPhotoUrl());
+        $newPhoto = \Image::make(imagerotate($photo, -90, 0));
 
         \Storage::cloud()->put($guest->photo_path, $newPhoto->stream()->__toString());
-//        $guest->photo_path = $path;
         return redirect()->back()->with(['success' => 'Image Rotated']);
     }
     /**

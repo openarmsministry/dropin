@@ -25,7 +25,7 @@
                         @foreach($guests as $guest)
                             <div class="col-sm-6 col-md-4 col-lg-3">
                                 @include('partials.card-image-checkboxes-action',
-                                      ['imgPath' => $guest->getPhotoPath(),
+                                      ['imgPath' => $guest->getPhotoUrl(),
                                        'actionPath' => route('attend', ['sessionId' => $session->id, 'guestId' => $guest->id]),
                                        'checkboxName' => 'services[]',
                                        'checkboxes' => $servicesArray,

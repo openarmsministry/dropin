@@ -22,9 +22,22 @@ class Guest extends Model
         return $query->where('nick_name', $name)->whereNotIn('id', $guestIds);
     }
 
-    public function getPhotoPath() {
-        if ( $this->photo_path == '/' and config('app.env') !== 'production' ) {
-            return "https://randomuser.me/api/portraits/men/{$this->id}.jpg";
+    public function updatePhoto($photo) {
+        if (is_null($this->photo_path)) {
+            $path = $this->saveNewPhoto($photo);
+        } else {
+            $path = \Storage::cloud()->put($this->photo_path, $photo);
+        }
+
+        return $path;
+    }
+
+    public function saveNewPhoto($photo) {
+        return $photo->store('guest-photos', 's3');
+    }
+    public function getPhotoUrl() {
+        if ( is_null($this->photo_path) and config('app.env') !== 'production' ) {
+            return "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
         }
 
         $s3 = \Storage::disk('s3');

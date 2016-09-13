@@ -10,7 +10,7 @@
         <p>Birth Date: {{$guest->birth_date ? $guest->birth_date->format('M d Y') : null}}</p>
         <p>SSN: {{$guest->ssn}}</p>
         <div class="row">
-            <img class="col-md-3" src="{{$guest->getPhotoPath()}}" alt="">
+            <img class="col-md-3" src="{{$guest->getPhotoUrl()}}" alt="">
             <form action="/guests/{{$guest->id}}/photo/rotate" method="post">
                 {{ csrf_field() }}
                 {{ method_field('put') }}
