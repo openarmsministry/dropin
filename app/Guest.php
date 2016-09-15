@@ -36,7 +36,7 @@ class Guest extends Model
         return $photo->store('guest-photos', 's3');
     }
     public function getPhotoUrl() {
-        if ( is_null($this->photo_path) and config('app.env') !== 'production' ) {
+        if (is_null($this->photo_path)) {
             return "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png";
         }
 
