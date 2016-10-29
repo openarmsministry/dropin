@@ -20,7 +20,9 @@ Auth::routes();
 Route::get('/admin', 'AdminController@index')->middleware('admin');
 
 Route::get('/admin/current', 'AdminController@current')->middleware('admin');
+//Route::get('/admin/past/{id?}', 'AdminController@past')->middleware('admin');
 
+Route::resource('sessions', 'SessionController');
 Route::resource('guests', 'GuestController');
 
 Route::put('guests/{id}/photo/rotate', 'GuestController@rotatePhoto')->middleware('auth');

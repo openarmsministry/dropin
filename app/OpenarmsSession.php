@@ -46,4 +46,32 @@ class OpenarmsSession extends Model
         return $query->where('end_timestamp', null);
     }
 
+    public function getLocalStartString($format = 'n/d/Y', $tz = null) {
+        if (is_null($tz)) {
+            $tz = config('app.local_timezone');
+        }
+        $time = $this->start_timestamp;
+        $time->tz = $tz;
+        return $time->format($format);
+    }
+
+    public function getAttendanceCount()
+    {
+        return $this->attendances->count();
+    }
+
+    public function getClothesNeedCount()
+    {
+        return $this->attendances->filter(function ($attendance) {
+            return $attendance->needsClothing();
+        })->count();
+    }
+
+    public function getIdNeedCount()
+    {
+        return $this->attendances->filter(function ($attendance) {
+            return $attendance->needsOamId();
+        })->count();
+    }
+
 }

@@ -24,4 +24,12 @@ class Attendance extends Model
     public function clothingCheckouts() {
         return $this->hasMany(ClothingCheckout::class);
     }
+
+    public function needsClothing() {
+        return $this->services->contains('short_name', 'Clothing');
+    }
+
+    public function needsOamId() {
+        return $this->services->contains('short_name', 'OAM ID');
+    }
 }

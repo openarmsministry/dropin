@@ -12,9 +12,10 @@
 
     <!-- Styles -->
     {{--<link href="/css/app.css" rel="stylesheet">--}}
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css"
           integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://opensource.keycdn.com/fontawesome/4.7.0/font-awesome.min.css" integrity="sha384-dNpIIXE8U05kAbPhy3G1cz+yZmTzA6CY8Vg/u2L9xRnHjJiAK76m2BIEaSEV+/aU" crossorigin="anonymous">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -46,6 +47,12 @@
                     <a href="/admin/current" class="nav-link">Current Session</a>
                 </li>
             @endif
+            @if( Auth::check() and Auth::user()->can('manage', \App\OpenarmsSession::class))
+                <li class="nav-item">
+                    <a href="/sessions" class="nav-link">Past Sessions</a>
+                </li>
+            @endif
+
         </ul>
         <ul class="nav navbar-nav pull-xs-right">
             <!-- Authentication Links -->
