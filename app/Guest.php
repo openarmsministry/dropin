@@ -53,4 +53,5 @@ class Guest extends Model
 
         return (string) $request->getUri();
     }
+
 }

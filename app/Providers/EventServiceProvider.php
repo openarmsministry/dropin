@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\GuestCheckedIn;
+use App\Events\NewGuestRegistered;
+use App\Events\OpenarmsSessionEnded;
+use App\Listeners\SubmitGuestCheckInEventToKeen;
+use App\Listeners\SubmitNewGuestEventToKeen;
+use App\Listeners\SubmitOpenarmsSessionEndedEventToKeen;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,9 +19,15 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        NewGuestRegistered::class => [
+            SubmitNewGuestEventToKeen::class,
         ],
+        OpenarmsSessionEnded::class => [
+            SubmitOpenarmsSessionEndedEventToKeen::class,
+        ],
+        GuestCheckedIn::class => [
+            SubmitGuestCheckInEventToKeen::class,
+        ]
     ];
 
     /**

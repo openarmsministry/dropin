@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\OpenarmsSessionEnded;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -40,6 +41,7 @@ class OpenarmsSession extends Model
         $this->end_timestamp = \Carbon\Carbon::now();
         $this->endedBy()->associate($user);
         $this->save();
+        event( new OpenarmsSessionEnded($this->load(['attendances', 'attendances.guest', 'attendances.services'])) );
     }
 
     public function scopeGetStarted(Builder $query) {

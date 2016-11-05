@@ -78,6 +78,8 @@ Route::post('/sessions/{sessionId}/checkin/{guestId}', function ($sessionId, $gu
         $attendance->services()->sync($services);
     }
 
+    event(new \App\Events\GuestCheckedIn($attendance));
+
     return redirect('checkin')->with(['success' => "{$guest->nick_name} is checked in."]);
 })->name('attend')->middleware('auth');
 
